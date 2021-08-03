@@ -1,0 +1,36 @@
+.search-box {
+  display:flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+.search-box-inputs {
+  display:flex;
+  width: 100%;
+  gap: 1rem;
+}
+.search-box-input {
+  padding: .5rem 0;
+  border: 1px solid rgb(13, 6, 78);
+  outline: none;
+  border-radius: .2rem;
+}
+.search-box-button {
+  border: none;
+  border-radius: .2rem;
+  color: #fff;
+  cursor: pointer;
+  transition: .4s ease-in-out;
+}
+.search-box-button:hover {
+  opacity: .9;
+}
+.search--open {
+  background: rgb(42, 23, 211);
+}
+.search--close {
+  background: rgb(221, 45, 118);
+}
+.search-box-button[disabled] {
+  pointer-events: none;
+  opacity: .5;
+}

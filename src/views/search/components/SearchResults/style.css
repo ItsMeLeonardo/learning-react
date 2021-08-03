@@ -1,0 +1,11 @@
+.list-results {
+  width: 100%;
+  justify-content:center;
+}
+li {
+  background: rgba(148, 203, 255, 0.274);
+  border-radius: .3rem;
+  padding: .5rem;
+  margin: 1rem 0;
+  list-style: none;
+}
