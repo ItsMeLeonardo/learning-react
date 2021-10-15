@@ -11,10 +11,15 @@ export default function SearchBox({ onSearch, onClose, isSearching }) {
     onClose();
   }
 
+  const handleSearchClick = (event) => {
+    onSearch(searchText)
+    event.preventDefault()
+  }
+
   return (
     <div className="search-box">
       <h3 className="search-box-title">Personal search</h3>
-      <div className="search-box-inputs">
+      <form className="search-box-inputs">
         <label>
           <input
             className="search-box-input"
@@ -23,19 +28,20 @@ export default function SearchBox({ onSearch, onClose, isSearching }) {
             type="text"
           />
         </label>
-        <button 
+        <button
+          type="submit"
           disabled={!searchText.length}
           className="search-box-button search--open"
-          onClick={() => onSearch(searchText)}>
+          onClick={handleSearchClick}>
           Search
         </button>
         {isSearching && <button 
-          disabled={!searchText.length}
+          type="reset"
           className="search-box-button search--close"
           onClick={handleCloseClick}>
           close
         </button>}
-      </div>
+      </form>
     </div>
   );
 }

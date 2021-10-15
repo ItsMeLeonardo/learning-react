@@ -17,6 +17,7 @@ export default function Search() {
   const handleSearchClick = (textSearch) => {
     if(data?.length) {
       setIsAtTop(true);
+      
       const textSearchMinus = textSearch.toLowerCase();
       const filteredData = data.filter(({name, username, email}) => 
           name.toLowerCase().includes(textSearchMinus) ||
@@ -30,9 +31,9 @@ export default function Search() {
   return (
     <div className={`search ${isAtTop && "search--top"}`}>
       <SearchBox
-      onSearch={handleSearchClick} 
-      onClose={handleCloseSearch}
-      isSearching={isAtTop}
+        onSearch={handleSearchClick} 
+        onClose={handleCloseSearch}
+        isSearching={isAtTop}
       />
       <SearchResults results={results} isSearching={isAtTop}/>
     </div>
