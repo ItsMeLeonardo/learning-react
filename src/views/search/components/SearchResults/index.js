@@ -6,23 +6,11 @@ export default function SearchResults({results, isSearching}) {
   return (
     <div className="result-container">
       <ul className="list-results">
-        {isSearching && <li className="txt-bold" >
+        {isSearching && <li className="txt-bold results" key="0">
           {isSearching ? `${results.length} results were found` : '0 results found' }
         </li>}
         {results?.map(result => {
-          return (
-            <li key={result.id }>
-              <SearchItems 
-                name={result.name} 
-                email={result.email}
-                username={result.username}
-              />
-            </li>
-            /*<li key={result.id}>
-            //this is use when the attributes are very long
-            <SearchItems {...result}/>
-          </li>*/
-          );
+          return (<SearchItems {...result} key={result.id}/>);
         })}
       </ul>
     </div>

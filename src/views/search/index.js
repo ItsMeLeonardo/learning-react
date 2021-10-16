@@ -2,16 +2,21 @@ import { useState } from "react";
 import SearchBox from "./components/SearchBox";
 import SearchResults from "./components/SearchResults";
 import './style.css'
-import data from '../../data/users.json'
 
 export default function Search() {
   
-  const getUsers = async () => {
-    const url = 'https://jsonplaceholder.typicode.com/users'
-    const response = await fetch(url)
-    const users = await response.json()
+  const getGames = async (params) => {
+    const url = `https://free-to-play-games-database.p.rapidapi.com/api/games?category=${params}`
     
-    return users
+    const response = await fetch( url, {
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
+        "x-rapidapi-key": "7028af46dcmsh56246c485fca18cp1be055jsnb15ace0594c7"
+      }
+    })
+    const games = await response.json()
+    return games
   }
 
   const [isAtTop, setIsAtTop] = useState(false);
@@ -21,19 +26,30 @@ export default function Search() {
     setIsAtTop(false)
     setResults([])
   };
+ 
 
   const handleSearchClick = (textSearch) => {
-    getUsers()
-    .then(user => {      
-      const textSearchMinus = textSearch.toLowerCase();
-      const filteredData = user.filter(({name, username, email}) => 
-          name.toLowerCase().includes(textSearchMinus) ||
-          username.toLowerCase().includes(textSearchMinus)||
-          email.toLowerCase().includes(textSearchMinus)
-      );
+
+    setIsAtTop(true)
+    getGames(textSearch)
+
+    // id title genre platform
+    .then(games => {      
+      const filteredData = games?.map(game => {
+        return {
+          id: game.id,
+          title: game.title,
+          genre: game.genre,
+          platform: game.platform,
+          thumbnail: game.thumbnail,
+          website: game.game_url,
+        }
+      })
       setResults(filteredData);
       
     }).catch(console.log)
+
+
   };
   
   return (
