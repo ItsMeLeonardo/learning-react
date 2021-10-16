@@ -6,6 +6,14 @@ import data from '../../data/users.json'
 
 export default function Search() {
   
+  const getUsers = async () => {
+    const url = 'https://jsonplaceholder.typicode.com/users'
+    const response = await fetch(url)
+    const users = await response.json()
+    
+    return users
+  }
+
   const [isAtTop, setIsAtTop] = useState(false);
   const [results, setResults] = useState([]);
 
@@ -15,17 +23,17 @@ export default function Search() {
   };
 
   const handleSearchClick = (textSearch) => {
-    if(data?.length) {
-      setIsAtTop(true);
-      
+    getUsers()
+    .then(user => {      
       const textSearchMinus = textSearch.toLowerCase();
-      const filteredData = data.filter(({name, username, email}) => 
+      const filteredData = user.filter(({name, username, email}) => 
           name.toLowerCase().includes(textSearchMinus) ||
           username.toLowerCase().includes(textSearchMinus)||
           email.toLowerCase().includes(textSearchMinus)
       );
       setResults(filteredData);
-    }
+      
+    }).catch(console.log)
   };
   
   return (
